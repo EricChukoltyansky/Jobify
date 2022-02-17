@@ -5421,9 +5421,3 @@ web: node server.js
 - add env variables
 - git push heroku main/master
 
-<!-- git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/EricChukoltyansky/Jobify.git
-git push -u origin main -->
