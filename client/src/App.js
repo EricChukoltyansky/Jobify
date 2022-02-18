@@ -1,19 +1,16 @@
-import Landing from "./pages/Landing";
-import styled from "styled-components";
-
-const Button = styled.button`
-  background: red;
-  color: white;
-  font-size: 1rem;
-`;
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Dashboard, Register, Landing, Error } from "./pages/index";
 
 function App() {
   return (
-    <>
-      <Button>Click me</Button>
-      <h2>Welcome to jobify</h2>
-      <Landing />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/landing" element={<Landing />} />
+        <Route path="/*" element={<Error />} />
+      </Routes>
+    </Router>
   );
 }
 
