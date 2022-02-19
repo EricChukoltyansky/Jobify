@@ -1,7 +1,8 @@
 import React from "react";
-import { useState, usEffect } from "react";
+import { useState, useEffect } from "react";
 import { Logo, FormRow, Alert } from "../components/index";
 import Wrapper from "../assets/wrappers/RegisterPage";
+import { useAppContext } from "../context/appContext";
 
 const initialState = {
   name: "",
@@ -13,6 +14,9 @@ const initialState = {
 
 export default function Register() {
   const [values, setValues] = useState(initialState);
+
+  const  {isLoading, showAlert}= useAppContext();
+  console.log(state);
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -31,17 +35,17 @@ export default function Register() {
     <Wrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
         <Logo />
-        <h3>{values.isMember ? 'Login' : 'Register'}</h3>
-        {values.showAlert && <Alert />}
+        <h3>{values.isMember ? "Login" : "Register"}</h3>
+        {showAlert && <Alert />}
         {!values.isMember && (
           <FormRow
-          type="text"
-          name="name"
-          value={values.name}
-          handleChange={handleChange}
-        />
+            type="text"
+            name="name"
+            value={values.name}
+            handleChange={handleChange}
+          />
         )}
-        
+
         <FormRow
           type="email"
           name="email"
@@ -58,9 +62,9 @@ export default function Register() {
           Submit
         </button>
         <p>
-          {values.isMember ? 'Not a member yet?': 'Already a member?'}
+          {values.isMember ? "Not a member yet?" : "Already a member?"}
           <button type="button" onClick={toggleMember} className="member-btn">
-            {values.isMember?'Register' : 'Login'}
+            {values.isMember ? "Register" : "Login"}
           </button>
         </p>
       </form>
