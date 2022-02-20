@@ -15,20 +15,25 @@ const initialState = {
 export default function Register() {
   const [values, setValues] = useState(initialState);
 
-  const  {isLoading, showAlert}= useAppContext();
-  console.log(state);
+  const { isLoading, showAlert, displayAlert } = useAppContext();
+  // console.log(state);
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
 
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const { name, email, password, isMember } = values;
+    if(!email ||!password || (!isMember && !name)) {
+     displayAlert()
+     return 
+    }
+    console.log(values)
   };
 
   return (

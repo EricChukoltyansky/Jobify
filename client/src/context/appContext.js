@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useReducer, useContext } from "react";
 import { DISPLAY_ALERT } from "./actions";
-
 import reducer from "./reducer";
 
 const initialState = {
@@ -21,7 +20,9 @@ const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ ...state, displayAlert }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, displayAlert }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 
