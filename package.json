@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Project in Action - [Jobify](https://www.jobify.live/)",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/EricChukoltyansky/Jobify/issues"
   },
-  "homepage": "https://github.com/EricChukoltyansky/Jobify#readme"
+  "homepage": "https://github.com/EricChukoltyansky/Jobify#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
