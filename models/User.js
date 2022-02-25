@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
+import validator from "validator";
 
 const UserSchema = new mongoose.Schema({
+  role: {
+    type: String,
+    trim: true,
+    maxlength: 20,
+    default: "admin",
+  },
   name: {
     type: String,
     required: [true, "Please provide name"],
@@ -8,30 +15,33 @@ const UserSchema = new mongoose.Schema({
     maxlength: 20,
     trim: true,
   },
-  lastName: {
-    type: String,
-    required: [true, "Please provide last name"],
-    default: 'lastName',
-    maxlength: 20,
-    trim: true,
-  }
   email: {
     type: String,
     required: [true, "Please provide email"],
+    validate: {
+      validator: validator.isEmail,
+      message: "Please provide a valid email",
+    },
     unique: true,
   },
   password: {
     type: String,
     required: [true, "Please provide password"],
     minlength: 6,
+    select: false,
+  },
+  lastName: {
+    type: String,
+    trim: true,
+    maxlength: 20,
+    default: "lastName",
   },
   location: {
     type: String,
     trim: true,
     maxlength: 20,
-    minlength: 6,
-    default: 'My City'
+    default: "Tacloban City",
   },
 });
 
-export default mongoose.model('User', UserSchema)
+export default mongoose.model("User", UserSchema);
