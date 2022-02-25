@@ -1,6 +1,7 @@
 import express from "express";
-const app = express();
 import dotenv from "dotenv";
+import bp from "body-parser";
+const app = express();
 dotenv.config();
 
 // db and authenticateUser
@@ -17,10 +18,11 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 // notFoundMiddlewar;
 
 app.get("/", (req, res) => {
-  // throw new Error("error");
   res.send("Welcome");
 });
 
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", jobsRouter);
 
@@ -31,6 +33,7 @@ const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
+    // console.log(process.env.MONGO_URL);
     await connectDB(process.env.MONGO_URL);
     app.listen(port, () => {
       console.log(`Server is listening to port ${port}...`);

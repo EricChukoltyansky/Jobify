@@ -2,12 +2,6 @@ import mongoose from "mongoose";
 import validator from "validator";
 
 const UserSchema = new mongoose.Schema({
-  role: {
-    type: String,
-    trim: true,
-    maxlength: 20,
-    default: "admin",
-  },
   name: {
     type: String,
     required: [true, "Please provide name"],
@@ -40,7 +34,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     maxlength: 20,
-    default: "Tacloban City",
+    default: "my city",
   },
 });
 
