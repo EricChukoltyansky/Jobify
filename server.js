@@ -7,20 +7,22 @@ dotenv.config();
 import connectDB from "./db/connect.js";
 
 // routers
-import authRouter from "./routes/authRoutes";
+import authRouter from "./routes/authRoutes.js";
+import jobsRouter from "./routes/jobsRoutes.js";
 
 // middleware
 import notFoundMiddlewar from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
-notFoundMiddlewar;
+// notFoundMiddlewar;
 
 app.get("/", (req, res) => {
-  throw new Error("error");
+  // throw new Error("error");
   res.send("Welcome");
 });
 
-app.use('/api/v1/auth', authRouter)
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/jobs", jobsRouter);
 
 app.use(notFoundMiddlewar);
 app.use(errorHandlerMiddleware);
@@ -33,8 +35,8 @@ const start = async () => {
     app.listen(port, () => {
       console.log(`Server is listening to port ${port}...`);
     });
-  } catch (e) {
-    console.log({ e: "An error has occured" });
+  } catch (err) {
+    console.log({ err: "An error has occured" });
   }
 };
 
