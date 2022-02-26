@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import bp from "body-parser";
 const app = express();
 dotenv.config();
+import "express-async-errors";
 
 // db and authenticateUser
 import connectDB from "./db/connect.js";
