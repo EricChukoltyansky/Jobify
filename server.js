@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", jobsRouter);
 
