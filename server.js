@@ -4,7 +4,7 @@ import bp from "body-parser";
 const app = express();
 dotenv.config();
 import "express-async-errors";
-import cors from "cors";
+// import cors from "cors";
 
 // db and authenticateUser
 import connectDB from "./db/connect.js";
@@ -19,11 +19,11 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 // notFoundMiddlewar;
 
-app.get("/", (req, res) => {
-  res.json({ msg: "Welcome" });
+app.get("/api/v1", (req, res) => {
+  res.json({ msg: "API" });
 });
 
-app.use(cors());
+// app.use(cors());
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
