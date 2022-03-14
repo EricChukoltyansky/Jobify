@@ -50,7 +50,7 @@ export default function Register() {
     if (user) {
       navigate("/");
     } 
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <Wrapper className="full-page">
