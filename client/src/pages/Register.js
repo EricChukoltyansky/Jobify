@@ -15,8 +15,7 @@ const initialState = {
 export default function Register() {
   const [values, setValues] = useState(initialState);
 
-  const { isLoading, showAlert, displayAlert } = useAppContext();
-  
+  const { isLoading, showAlert, displayAlert, RegisterUser } = useAppContext();
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -29,13 +28,19 @@ export default function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
-    // if(!email ||!password || (!isMember && !name)) 
-    if(!email ||!password ||!name) {
-      
-     displayAlert()
-     return 
+    // if(!email ||!password || (!isMember && !name))
+    if (!email || !password || !name) {
+      displayAlert();
+      return;
     }
-    
+
+    const currentUser = { name, email, password, isMember };
+    if (isMember) {
+      currentUser.isMember = true;
+    } else {
+      currentUser.isMember = false;
+    }
+    console.log(values);
   };
 
   return (
