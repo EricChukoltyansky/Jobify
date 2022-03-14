@@ -15,7 +15,7 @@ const initialState = {
 export default function Register() {
   const [values, setValues] = useState(initialState);
 
-  const { isLoading, showAlert, displayAlert, RegisterUser } = useAppContext();
+  const { isLoading, showAlert, displayAlert, registerUser } = useAppContext();
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -34,13 +34,13 @@ export default function Register() {
       return;
     }
 
-    const currentUser = { name, email, password, isMember };
+    const currentUser = { name, email, password };
     if (isMember) {
+      console.log("isMember");
       currentUser.isMember = true;
     } else {
-      currentUser.isMember = false;
+      registerUser(currentUser);
     }
-    console.log(values);
   };
 
   return (
@@ -70,7 +70,7 @@ export default function Register() {
           value={values.password}
           handleChange={handleChange}
         />
-        <button type="submit" className="btn btn-block">
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
           Submit
         </button>
         <p>

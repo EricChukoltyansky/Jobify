@@ -8,6 +8,7 @@ import {
   REGISTER_USER_ERROR,
 } from "./actions";
 import reducer from "./reducer";
+import axios from "axios";
 
 const initialState = {
   isLoading: false,
@@ -17,6 +18,7 @@ const initialState = {
   user: null,
   token: null,
   userLocation: null,
+  jobLocation: "",
 };
 
 const AppContext = React.createContext();
@@ -36,7 +38,21 @@ const AppProvider = ({ children }) => {
   };
 
   const registerUser = async (currentUser) => {
-    console.log(currentUser);
+    dispatch({ type: REGISTER_USER_BEGIN });
+    try {
+      const { data } = await axios.post("/api/v1/auth/register", currentUser);
+      console.log(data);
+      // dispatch({
+      //   type: REGISTER_USER_SUCCESS,
+      //   payload: data,
+      // });
+    } catch (error) {
+      // dispatch({
+      //   type: REGISTER_USER_ERROR,
+      //   payload: error,
+      // });
+      console.log("error", error);
+    }
   };
 
   return (
