@@ -4,7 +4,7 @@ import bp from "body-parser";
 const app = express();
 dotenv.config();
 import "express-async-errors";
-// import cors from "cors";
+import morgan from "morgan";
 
 // db and authenticateUser
 import connectDB from "./db/connect.js";
@@ -17,7 +17,9 @@ import jobsRouter from "./routes/jobsRoutes.js";
 import notFoundMiddlewar from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
-// notFoundMiddlewar;
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 
 app.get("/api/v1", (req, res) => {
   res.json({ msg: "API" });
