@@ -31,8 +31,8 @@ export default function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
-    // if(!email ||!password || (!isMember && !name))
-    if (!email || !password || !name) {
+    if (!email || !password || (!isMember && !name)) {
+      // if (!email || !password || !name) {
       displayAlert();
       return;
     }
@@ -42,7 +42,7 @@ export default function Register() {
       setupUser({
         currentUser,
         endPoint: "login",
-        alertText: "Succesfully logges in",
+        alertText: "Succesfully logged in",
       });
       currentUser.isMember = true;
     } else {

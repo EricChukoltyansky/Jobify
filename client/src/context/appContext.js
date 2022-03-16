@@ -3,12 +3,6 @@ import { useState, useReducer, useContext } from "react";
 import {
   CLEAR_ALERT,
   DISPLAY_ALERT,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
-  LOGIN_USER_BEGIN,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_ERROR,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
@@ -101,31 +95,30 @@ const AppProvider = ({ children }) => {
   //   clearAlert();
   // };
 
-
   // loginUser + registerUser refactored to prevent duplicated code
-  const setupUser = async ({currentUser, endPoint, alertText }) => {
-   dispatch({ type: SETUP_USER_BEGIN });
+  const setupUser = async ({ currentUser, endPoint, alertText }) => {
+    dispatch({ type: SETUP_USER_BEGIN });
     try {
-      const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser);
+      const { data } = await axios.post(
+        `/api/v1/auth/${endPoint}`,
+        currentUser
+      );
       const { token, user, location } = data;
       dispatch({
         type: SETUP_USER_SUCCESS,
         payload: { token, user, location, alertText },
       });
-      addUserToLocalStorage({ user, token, location  });
-    }
-    catch (error) {
+      addUserToLocalStorage({ user, token, location });
+    } catch (error) {
       dispatch({
         type: SETUP_USER_ERROR,
         payload: { msg: error.response.data.msg },
       });
     }
-  }
+  };
 
   return (
-    <AppContext.Provider
-      value={{ ...state, displayAlert, setupUser }}
-    >
+    <AppContext.Provider value={{ ...state, displayAlert, setupUser }}>
       {children}
     </AppContext.Provider>
   );
