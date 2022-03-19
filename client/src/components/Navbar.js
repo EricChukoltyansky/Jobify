@@ -23,7 +23,19 @@ function Navbar() {
             type="button"
             className="btn"
             onClick={() => console.log("show/hide dropdown")}
-          ></button>
+          >
+            <FaUserCircle />
+            User
+          </button>
+          <div className="dropdown show-dropdown">
+            <button
+              type="button"
+              className="dropdown-btn"
+              onClick={() => console.log("Logout")}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </Wrapper>

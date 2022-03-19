@@ -114,6 +114,12 @@ const reducer = (state, action) => {
       alertText: action.payload.msg,
     };
   }
+  if (action.type === "TOGGLE_SIDEBAR") {
+    return {
+      ...state,
+      sidebarOpen: !state.sidebarOpen,
+    };
+  }
 
   throw new Error(`no such action : ${action.type}`);
 };
