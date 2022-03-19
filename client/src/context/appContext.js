@@ -23,6 +23,7 @@ const initialState = {
   token: token ? token : null,
   userLocation: location ? location : "",
   jobLocation: location ? location : "",
+  showSideBar: false,
 };
 
 const AppContext = React.createContext();
@@ -53,48 +54,6 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem("location");
   };
 
-  // const registerUser = async (currentUser) => {
-  //   dispatch({ type: REGISTER_USER_BEGIN });
-  //   try {
-  //     const { data } = await axios.post("/api/v1/auth/register", currentUser);
-  //     console.log(data);
-  //     console.log(JSON.stringify(data.user));
-  //     const { token, user, location } = data;
-  //     console.log(token, user, location);
-  //     dispatch({
-  //       type: REGISTER_USER_SUCCESS,
-  //       payload: { token, user, location },
-  //     });
-  //     addUserToLocalStorage({ user, token, location });
-  //   } catch (error) {
-  //     dispatch({
-  //       type: REGISTER_USER_ERROR,
-  //       payload: { msg: error.response.data.msg },
-  //     });
-  //   }
-  //   clearAlert();
-  // };
-
-  // const loginUser = async (currentUser) => {
-  //   dispatch({ type: LOGIN_USER_BEGIN });
-  //   try {
-  //     const { data } = await axios.post("/api/v1/auth/login", currentUser);
-  //     const { token, user, location } = data;
-  //     dispatch({
-  //       type: LOGIN_USER_SUCCESS,
-  //       payload: { token, user, location },
-  //     });
-  //     addUserToLocalStorage({ user, token, location });
-  //   } catch (error) {
-  //     console.log(error)
-  //     dispatch({
-  //       type: LOGIN_USER_ERROR,
-  //       payload: { msg: error.response.data.msg },
-  //     });
-  //   }
-  //   clearAlert();
-  // };
-
   // loginUser + registerUser refactored to prevent duplicated code
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN });
@@ -115,10 +74,17 @@ const AppProvider = ({ children }) => {
         payload: { msg: error.response.data.msg },
       });
     }
+    clearAlert();
+  };
+
+  const toggleSidebar = () => {
+    dispatch({ type: "TOGGLE_SIDEBAR" });
   };
 
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, setupUser }}>
+    <AppContext.Provider
+      value={{ ...state, displayAlert, setupUser, toggleSidebar }}
+    >
       {children}
     </AppContext.Provider>
   );
