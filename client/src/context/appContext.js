@@ -6,6 +6,7 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  LOGOUT_USER,
 } from "./actions";
 import reducer from "./reducer";
 import axios from "axios";
@@ -81,9 +82,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: "TOGGLE_SIDEBAR" });
   };
 
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
+
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, setupUser, toggleSidebar }}
+      value={{ ...state, displayAlert, setupUser, toggleSidebar, logoutUser }}
     >
       {children}
     </AppContext.Provider>
