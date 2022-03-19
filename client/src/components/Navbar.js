@@ -5,14 +5,12 @@ import { useAppContext } from "../context/appContext";
 import Logo from "./Logo";
 
 function Navbar() {
+  const [showLogout, setShowLogout] = React.useState(false);
   const { toggleSidebar } = useAppContext();
   return (
     <Wrapper>
       <div className="nav-center">
-        <button
-          className="toggle-btn"
-          onClick={() => toggleSidebar()}
-        >
+        <button className="toggle-btn" onClick={() => toggleSidebar()}>
           <FaAlignLeft />
         </button>
         <div>
@@ -23,12 +21,12 @@ function Navbar() {
           <button
             type="button"
             className="btn"
-            onClick={() => console.log("show/hide dropdown")}
+            onClick={() => setShowLogout(!showLogout)}
           >
             <FaUserCircle />
             User
           </button>
-          <div className="dropdown show-dropdown">
+          <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
             <button
               type="button"
               className="dropdown-btn"
