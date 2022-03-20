@@ -1,10 +1,25 @@
 import React from "react";
+import { useAppContext } from "../context/appContext";
+import Logo from "./Logo";
+import NavLinks from "./NavLinks";
 import Wrapper from "../assets/wrappers/BigSidebar";
 
 function BigSideBar() {
+  const { showSideBar } = useAppContext();
   return (
     <Wrapper>
-      <h4>BigSideBar</h4>
+      <div
+        className={
+          showSideBar ? "sidebar-container show-sidebar" : "sidebar-container"
+        }
+      >
+        <div className="content">
+          <header>
+            <Logo />
+          </header>
+          <NavLinks />
+        </div>
+      </div>
     </Wrapper>
   );
 }
