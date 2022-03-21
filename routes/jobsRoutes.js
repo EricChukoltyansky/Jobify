@@ -1,5 +1,7 @@
 import express from "express";
 const router = express.Router();
+import authenticateUser from "../middleware/auth.js";
+
 
 import {
   createJob,
