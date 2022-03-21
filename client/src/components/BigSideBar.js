@@ -5,19 +5,19 @@ import NavLinks from "./NavLinks";
 import Wrapper from "../assets/wrappers/BigSidebar";
 
 function BigSideBar() {
-  const { showSideBar } = useAppContext();
+  const { showSideBar, toggleSidebar } = useAppContext();
   return (
     <Wrapper>
       <div
         className={
-          showSideBar ? "sidebar-container show-sidebar" : "sidebar-container"
+          showSideBar ? "sidebar-container" : "sidebar-container show-sidebar"
         }
       >
         <div className="content">
           <header>
             <Logo />
           </header>
-          <NavLinks />
+          <NavLinks toggleSidebar={toggleSidebar} />
         </div>
       </div>
     </Wrapper>
