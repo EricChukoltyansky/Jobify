@@ -4,6 +4,7 @@ import {
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  UPDATE_USER,
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -50,6 +51,13 @@ const reducer = (state, action) => {
       token: null,
       userLocation: "",
       jobLocation: "",
+    };
+  }
+
+  if (action.type === UPDATE_USER) {
+    return {
+      ...state,
+      user: action.payload.user,
     };
   }
 

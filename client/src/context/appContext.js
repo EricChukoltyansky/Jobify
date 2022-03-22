@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useReducer, useContext } from "react";
+import { useReducer, useContext } from "react";
 import {
   CLEAR_ALERT,
   DISPLAY_ALERT,
@@ -7,6 +7,8 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   LOGOUT_USER,
+  TOGGLE_SIDEBAR,
+  UPDATE_USER,
 } from "./actions";
 import reducer from "./reducer";
 import axios from "axios";
@@ -79,7 +81,7 @@ const AppProvider = ({ children }) => {
   };
 
   const toggleSidebar = () => {
-    dispatch({ type: "TOGGLE_SIDEBAR" });
+    dispatch({ type: TOGGLE_SIDEBAR });
   };
 
   const logoutUser = () => {
@@ -87,9 +89,20 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
+  const updateUser = (user) => {
+    dispatch({ type: UPDATE_USER, payload: user });
+  };
+
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, setupUser, toggleSidebar, logoutUser }}
+      value={{
+        ...state,
+        displayAlert,
+        setupUser,
+        toggleSidebar,
+        logoutUser,
+        updateUser,
+      }}
     >
       {children}
     </AppContext.Provider>
