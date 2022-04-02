@@ -32,25 +32,25 @@ function Profile() {
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRow
-            label="Name"
+            labelText="Name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <FormRow
-            label="Email"
+            labelText="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <FormRow
-            label="Password"
+            labelText="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <FormRow
-            label="Location"
+            labelText="Location"
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
