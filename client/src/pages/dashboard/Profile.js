@@ -9,19 +9,19 @@ function Profile() {
 
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState(user?.password);
+  const [lastName, setLastName] = useState(user?.lastName);
   const [location, setLocation] = useState(user?.location);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password || !name || !location) {
+    if (!email || !lastName || !name || !location) {
       displayAlert();
       return;
     }
     updateUser({
       name,
       email,
-      password,
+      lastName,
       location,
     });
   };
@@ -32,28 +32,28 @@ function Profile() {
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRow
-            labelText="Name"
+            name="Name"
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            handleChange={(e) => setName(e.target.value)}
           />
           <FormRow
-            labelText="Email"
+            name="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            handleChange={(e) => setEmail(e.target.value)}
           />
           <FormRow
-            labelText="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="Last Name"
+            type="text"
+            value={lastName}
+            handleChange={(e) => setLastName(e.target.value)}
           />
           <FormRow
-            labelText="Location"
+            name="Location"
             type="text"
             value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            handleChange={(e) => setLocation(e.target.value)}
           />
           <button
             type="submit"

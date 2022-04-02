@@ -8,7 +8,9 @@ import {
   SETUP_USER_ERROR,
   LOGOUT_USER,
   TOGGLE_SIDEBAR,
-  UPDATE_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_ERROR,
+  UPDATE_USER_SUCCESS,
 } from "./actions";
 import reducer from "./reducer";
 import axios from "axios";
@@ -33,6 +35,35 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  //  axios
+  const authFetch = axios.create({
+    baseURL: "/api/v1",
+  });
+
+  // request
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common["Authorization"] = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  // response
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        dispatch({ type: LOGOUT_USER });
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
@@ -89,18 +120,25 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
-  const updateUser = (user) => {
+  const updateUser = async (currentUser) => {
+    dispatch({ type: UPDATE_USER_BEGIN });
     try {
-      dispatch({ type: UPDATE_USER, payload: user });
-      const { data } = axios.patch(`/api/v1/auth/update`, user, {
-        headers: {
-          Authorization: `Bearer ${state.token}`,
-        },
+      const { data } = authFetch.patch(`/auth/update`, currentUser);
+      const { token, user, location } = data;
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { token, user, location },
       });
-      console.log(data);
-    } catch (emailError) {
-      displayAlert();
+      addUserToLocalStorage({ user, location, token });
+    } catch (error) {
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
     }
+    clearAlert();
   };
 
   return (
