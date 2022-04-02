@@ -59,7 +59,9 @@ function Profile() {
             type="submit"
             className="btn btn-primary"
             disabled={isLoading}
-          />
+          >
+            {isLoading ? "Loading..." : "Update"}
+          </button>
         </div>
       </form>
     </Wrapper>

@@ -90,7 +90,17 @@ const AppProvider = ({ children }) => {
   };
 
   const updateUser = (user) => {
-    dispatch({ type: UPDATE_USER, payload: user });
+    try {
+      dispatch({ type: UPDATE_USER, payload: user });
+      const { data } = axios.patch(`/api/v1/auth/update`, user, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
+      console.log(data);
+    } catch (emailError) {
+      displayAlert();
+    }
   };
 
   return (
