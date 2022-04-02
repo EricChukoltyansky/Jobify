@@ -59,7 +59,7 @@ const AppProvider = ({ children }) => {
     },
     (error) => {
       if (error.response.status === 401) {
-        dispatch({ type: LOGOUT_USER });
+        logoutUser();
       }
       return Promise.reject(error);
     }
@@ -123,11 +123,14 @@ const AppProvider = ({ children }) => {
   const updateUser = async (currentUser) => {
     dispatch({ type: UPDATE_USER_BEGIN });
     try {
-      const { data } = authFetch.patch(`/auth/update`, currentUser);
-      const { token, user, location } = data;
+      const { data } = await authFetch.patch("/auth/updateUser", currentUser);
+      console.log(data);
+
+      const { user, location, token } = data;
+
       dispatch({
         type: UPDATE_USER_SUCCESS,
-        payload: { token, user, location },
+        payload: { user, location, token },
       });
       addUserToLocalStorage({ user, location, token });
     } catch (error) {

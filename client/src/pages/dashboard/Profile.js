@@ -29,6 +29,7 @@ function Profile() {
     <Wrapper>
       <form action="" className="form" onSubmit={handleSubmit}>
         <h3>Profile</h3>
+        {console.log(showAlert)}
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRow
